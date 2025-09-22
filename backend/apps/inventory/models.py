@@ -412,4 +412,6 @@ class InventoryCount(models.Model):
     @property
     def discrepancy(self):
         """Calculate the difference between actual and expected quantities."""
+        if self.actual_quantity is None or self.expected_quantity is None:
+            return None
         return self.actual_quantity - self.expected_quantity

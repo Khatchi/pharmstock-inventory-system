@@ -23,20 +23,27 @@ class UserAdmin(BaseUserAdmin):
     Admin configuration for the custom User model.
     """
     inlines = (UserProfileInline,)
-    list_display = ('email', 'username', 'role',
-                    'is_staff', 'is_active', 'last_login')
+    list_display = ('email', 'first_name', 'last_name', 'role', 'is_staff', 'is_active', 'last_login')
     list_filter = ('role', 'is_staff', 'is_superuser', 'is_active', 'groups')
-    search_fields = ('email', 'username')
+    search_fields = ('email', 'first_name', 'last_name', 'role')
     ordering = ('email',)
 
-    # Remove the default 'username' fieldset and use email
+    # Fields for editing existing users
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         ('Personal info', {'fields': ('first_name', 'last_name', 'role')}),
-        ('Permissions', {'fields': ('is_active', 'is_staff',
-         'is_superuser', 'groups', 'user_permissions')}),
+        ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
         ('Important dates', {'fields': ('last_login', 'date_joined')}),
     )
+
+    # Fields for adding new users
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('email', 'first_name', 'last_name', 'role', 'password1', 'password2'),
+        }),
+    )
+    filter_horizontal = ('groups', 'user_permissions',)
 
 
 @admin.register(UserProfile)
