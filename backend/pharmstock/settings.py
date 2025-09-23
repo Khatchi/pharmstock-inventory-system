@@ -12,14 +12,13 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
-import sys
 import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Add apps directory to Python path
-sys.path.append(os.path.join(BASE_DIR, 'apps'))
+# sys.path.append(os.path.join(BASE_DIR, 'apps'))
 
 # Load environment variables from a .env file
 env = environ.Env()
@@ -173,3 +172,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Custom User Model
 AUTH_USER_MODEL = 'authentication.User'
+
+# Add media files settings for ImageField
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
