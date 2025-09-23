@@ -70,6 +70,10 @@ class User(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []  # Remove username from required fields
 
+    @property
+    def id(self):
+        return self.user_id
+
     class Meta:
         """Meta options for the User model."""
         app_label = 'authentication'
